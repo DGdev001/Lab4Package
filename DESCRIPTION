@@ -13,3 +13,5 @@ Description: Prints ASCII Art :D
 License: N/A
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/DGdev001/Lab4Package
+BugReports: https://github.com/DGdev001/Lab4Package/issues
