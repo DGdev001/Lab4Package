@@ -1,0 +1,15 @@
+Package: Lab4Package
+Type: Package
+Title: DavidGNorvell_Lab4Funct
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "David", "Norvell",
+      email = "david.g.norvell-1@ou.edu",
+      role = c("aut", "cre")
+    )
+  )
+Description: Prints ASCII Art :D
+License: N/A
+Encoding: UTF-8
+LazyData: true
