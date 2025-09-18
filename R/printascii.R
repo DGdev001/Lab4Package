@@ -7,7 +7,6 @@
 #' File to be printed must be in working directory
 #' @examples
 #' print_ascii("light_ascii.txt") (Provided)
-#' @name print_ascii
 #'@export
 print_ascii <- function(x) {
   art <- readLines(x, warn = FALSE)
