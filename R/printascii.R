@@ -7,7 +7,8 @@
 #' File to be printed must be in working directory
 #' Examples
 #' print_ascii("light_ascii.txt") (Provided)
-#'
+#' @name printascii
+NULL
 
 
 print_ascii <- function(file = x) {

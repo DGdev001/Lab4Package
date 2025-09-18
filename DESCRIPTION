@@ -15,3 +15,4 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/DGdev001/Lab4Package
 BugReports: https://github.com/DGdev001/Lab4Package/issues
+RoxygenNote: 7.3.3
