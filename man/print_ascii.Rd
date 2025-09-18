@@ -3,13 +3,17 @@
 \name{print_ascii}
 \alias{print_ascii}
 \title{Print ASCII}
+\usage{
+print_ascii(x)
+}
 \arguments{
 \item{x}{String containing the filename
 If valid file, is printed
-File to be printed must be in working directory
-Examples
-print_ascii("light_ascii.txt") (Provided)}
+File to be printed must be in working directory}
 }
 \description{
 More Detailed Description
+}
+\examples{
+print_ascii("light_ascii.txt") (Provided)
 }

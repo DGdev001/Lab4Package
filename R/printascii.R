@@ -5,14 +5,12 @@
 #' @param x String containing the filename
 #' If valid file, is printed
 #' File to be printed must be in working directory
-#' Examples
+#' @examples
 #' print_ascii("light_ascii.txt") (Provided)
 #' @name print_ascii
-NULL
-
-
-print_ascii <- function(file = x) {
-  art <- readLines(file, warn = FALSE)
+#'@export
+print_ascii <- function(x) {
+  art <- readLines(x, warn = FALSE)
   cat(paste(art, collapse = "\n"), "\n")
 }
 
