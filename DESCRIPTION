@@ -1,18 +1,15 @@
 Package: Lab4Package
-Type: Package
-Title: DavidGNorvell_Lab4Funct
-Version: 0.1.0
-Authors@R: c(
-    person(
-      "David", "Norvell",
-      email = "david.g.norvell-1@ou.edu",
-      role = c("aut", "cre")
-    )
-  )
-Description: Prints ASCII Art :D
-License: N/A
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person("David", "Norvell", , "david.g.norvell-1@ou.edu", role = c("aut", "cre"))
+Description: An assortment of functions from Lab4 onward in MATH 4735,
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
 Encoding: UTF-8
-LazyData: true
-URL: https://github.com/DGdev001/Lab4Package
-BugReports: https://github.com/DGdev001/Lab4Package/issues
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
