@@ -66,3 +66,32 @@ myhyper=function(iter=100,N=20,r=12,n=5){
   barplot(succ.tab/(iter), col=rainbow(n+1), main="HYPERGEOMETRIC simulation", xlab="Number of successes")
   succ.tab/iter
 }
+
+#'Modified function for lab 7
+#'Displays the curve, shaded area between it and x axis from
+#'neg inf to x=a, then calculates the area
+#'@param mu, Mean of the given normal distribution
+#'@param sigma, Standard Deviation of given normal distribution
+#'@param a, upper bound for the shaded area
+#'@export
+myncurve <- function(mu, sigma, a) {
+  # Plot the normal curve
+  curve(dnorm(x, mean = mu, sd = sigma),
+        xlim = c(mu - 4*sigma, mu + 4*sigma),
+        ylab = "Density",
+        main = paste("Normal Curve: mu =", mu, ", sigma =", sigma))
+
+  # Shade area from -Inf to a
+  x_vals <- seq(mu - 4*sigma, a, length = 1000)
+  y_vals <- dnorm(x_vals, mean = mu, sd = sigma)
+  polygon(c(mu - 4*sigma, x_vals, a), c(0, y_vals, 0), col = "lightblue")
+
+  # Calculate probability P(X <= a)
+  prob <- round(pnorm(a, mean = mu, sd = sigma), 4)
+
+  # Display probability on the plot
+  text(a, max(y_vals)/2, paste("P(X ≤", a, ") =", prob))
+
+  # Return results as a list
+  return(list(mu = mu, sigma = sigma, a = a, probability = prob))
+}

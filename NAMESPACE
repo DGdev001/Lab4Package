@@ -3,4 +3,5 @@
 export(birthday)
 export(birthdayDGN)
 export(myhyper)
+export(myncurve)
 export(print_ascii)

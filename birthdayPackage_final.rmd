@@ -1,0 +1,55 @@
+---
+title: "BirthdayProblemDGN"
+author: "David Norvell"
+date: "2025-10-01"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{BirthdayProbClassExercise}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+$$
+Consider there exists an classroom A that contains a set of k persons, now assume that there exists also a complementary set "B" that contains at least 2 persons who share a birthday. Now the probabilities $P(A)$ and $P(B)$ can be related using the formula $P(B)=1-P(A)$ where $P(A)$ can be computed via permutations. Let $V_{nr}$ equal the number of ways that our set k can have distinct birthdays, then let $v_i$ be the number of ways the set k can be permuted (Allowing repeats). Then computing the Probability $P(A)$ can be done via the ratio between $\frac{V_{nr}}{v_i}$ \
+
+Solving for k gives us $V_{nr} = 365\times 364 \times 363...(365-(k-1)) = \frac{365!}{(365-k)!}\
+
+And $V_i = 365\times 365 \times 365...365 = 365^k$\
+
+The ratio then becomes $P(A) = \frac{\frac{365!}{(365-k)!}}{365^k}$\
+
+Using a set of 20 persons for k\
+$V_{nr}=(365-(20-1)) = \frac{365!}{(365-20)!} = 1.036690\times 10^{51}$ \
+$v_i=365^20=1.761397\times 10^{51}$\
+$P(A)=\frac{1.036690\times 10^{51}}{1.761397\times 10^{51}} = 0.588 = 0.59$\
+So the probability that 20 people have the same birthday is around 59 percent\
+
+$$
+
+$$
+Rewriting the given logorithm version in latex\
+
+${P_n}^{365}=n! {C_n}^{365}$\
+
+$P(A)= \frac{{P_n}^{365}}{365^n}ilogP(A)=log^{365P_n}-nlog^{365}$\
+
+$=logn!+log\binom{365}{n}-nlog365$\
+
+$P(A)=1-P(A)=1-e(logP(A))=1-e(i!m+1 \binom{365}{n}-nlog365)=1!(n)+1 \binom{365}{n}-nlog365$\
+$$
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+```{r}
+answers<-Lab4Package::birthdayDGN(20:25)
+answers
+
+```
