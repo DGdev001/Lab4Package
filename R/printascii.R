@@ -37,6 +37,7 @@ birthdayDGN <- function(n) {
   })
 }
 install.packages("usethis",repos = "http://cran.us.r-project.org")
+install.packages("rmarkdown, repos=","http://cran.us.r-project.org")
 usethis::use_vignette("BirthdayFunctionDGN")
 
 #' MyHyper from Lab5
