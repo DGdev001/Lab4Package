@@ -36,7 +36,7 @@ birthdayDGN <- function(n) {
     return(prob_shared)
   })
 }
-install.packages("usethis")
+install.packages("usethis",repos = "http://cran.us.r-project.org")
 usethis::use_vignette("BirthdayFunctionDGN")
 
 #' MyHyper from Lab5
