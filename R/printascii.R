@@ -6,7 +6,7 @@
 #' If valid file, is printed
 #' File to be printed must be in working directory
 #' @examples
-#' print_ascii("extdata/light_ascii.txt") (Provided)
+#' print_ascii("Lab4Package/inst/extdata/light_ascii.txt") (Provided)
 #' @export
 print_ascii <- function(x) {
   art <- readLines(x, warn = FALSE)
