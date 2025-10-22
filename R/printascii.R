@@ -6,7 +6,7 @@
 #' If valid file, is printed
 #' File to be printed must be in working directory
 #' @examples
-#' print_ascii("light_ascii.txt") (Provided)
+#' print_ascii("extdata/light_ascii.txt") (Provided)
 #' @export
 print_ascii <- function(x) {
   art <- readLines(x, warn = FALSE)
@@ -68,7 +68,7 @@ myhyper=function(iter=100,N=20,r=12,n=5){
   succ.tab/iter
 }
 
-#'Modified function for lab 7
+#'Modified function for lab 6
 #'Displays the curve, shaded area between it and x axis from
 #'neg inf to x=a, then calculates the area
 #'@param mu, Mean of the given normal distribution
@@ -96,3 +96,16 @@ myncurve <- function(mu, sigma, a) {
   # Return results as a list
   return(list(mu = mu, sigma = sigma, a = a, probability = prob))
 }
+#FIRE Dataset for Lab 7
+#' FIRE data set.
+#'
+#' A data set from MS
+#'
+#' @format A data frame with 15 rows and 2 variables:
+#' \describe{
+#'   \item{DISTANCE}{length in cm}
+#'   \item{DAMAGE}{Dollars damage}
+#'   ...
+#' }
+#' @source \url{https://www.crcpress.com/Statistics-for-Engineering-and-the-Sciences/Mendenhall-Sincich/p/book/9781498728850}
+"fire"

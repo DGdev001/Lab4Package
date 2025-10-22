@@ -2,7 +2,7 @@
 % Please edit documentation in R/printascii.R
 \name{myncurve}
 \alias{myncurve}
-\title{Modified function for lab 7
+\title{Modified function for lab 6
 Displays the curve, shaded area between it and x axis from
 neg inf to x=a, then calculates the area}
 \usage{
@@ -16,7 +16,7 @@ myncurve(mu, sigma, a)
 \item{a, }{upper bound for the shaded area}
 }
 \description{
-Modified function for lab 7
+Modified function for lab 6
 Displays the curve, shaded area between it and x axis from
 neg inf to x=a, then calculates the area
 }
