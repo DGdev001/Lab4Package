@@ -109,3 +109,99 @@ myncurve <- function(mu, sigma, a) {
 #' }
 #' @source \url{https://www.crcpress.com/Statistics-for-Engineering-and-the-Sciences/Mendenhall-Sincich/p/book/9781498728850}
 "fire"
+
+#' Central Limit Theorem simulation for the Poisson Distribution
+#' Used to demonstrate that it'll work with continuous or discrete distributions
+#' @param n Integer. Sample size for each iteration. Default is 10.
+#' @param iter Integer. Number of iterations (simulated samples). Default is 10000.
+#' @param lambda Numeric. The rate parameter of the Poisson distribution. Default is 10.
+#' @param For options to modify the graphical output of \code{hist()}.
+#'
+#' @return This function produces three plots:
+#' \itemize{
+#'   \item A histogram of the sample means with a theoretical normal curve.
+#'   \item A barplot of the simulated Poisson samples.
+#'   \item A plot of the theoretical Poisson probability mass function.
+#' }
+#'
+#' @details
+#' Used in Lab8 MATH-4753
+#'
+#'
+#'
+#' @examples
+#' \dontrun{
+#'   mycltp(n = 10, iter = 10000, lambda = 10)
+#' }
+#'
+#' @export
+#'
+mycltp <- function(n = 10, iter = 10000, lambda = 10, ...) {
+  ## Generate Poisson samples
+  y <- stats::rpois(n * iter, lambda = lambda)
+
+  ## Arrange into matrix (rows = sample size, columns = iterations)
+  data <- matrix(y, nrow = n, ncol = iter, byrow = TRUE)
+
+  ## Compute sample means
+  w <- apply(data, 2, mean)
+
+  ## Prepare histogram data (without plotting yet)
+  param <- graphics::hist(w, plot = FALSE)
+  ymax <- 1.1 * max(param$density)
+
+  ## Set up layout: histogram on top, barplot + PMF below
+  graphics::layout(matrix(c(1, 1, 2, 3), nrow = 2, ncol = 2, byrow = TRUE))
+
+  ## Plot histogram of sample means
+  graphics::hist(
+    w,
+    freq = FALSE,
+    ylim = c(0, ymax),
+    col = grDevices::rainbow(max(w)),
+    main = paste(
+      "Histogram of sample mean\n",
+      "sample size = ", n,
+      " iter = ", iter,
+      " lambda = ", lambda,
+      sep = ""
+    ),
+    xlab = "Sample mean",
+    ...
+  )
+
+  ## Overlay theoretical normal approximation
+  graphics::curve(
+    stats::dnorm(x, mean = lambda, sd = sqrt(lambda / n)),
+    add = TRUE,
+    col = "red",
+    lty = 2,
+    lwd = 3
+  )
+
+  ## Barplot of simulated raw Poisson samples
+  graphics::barplot(
+    table(y) / (n * iter),
+    col = grDevices::rainbow(max(y)),
+    main = "Barplot of sampled y",
+    ylab = "Relative Frequency",
+    xlab = "y"
+  )
+
+  ## Theoretical Poisson probability function
+  x <- 0:max(y)
+  graphics::plot(
+    x,
+    stats::dpois(x, lambda = lambda),
+    type = "h",
+    lwd = 5,
+    col = grDevices::rainbow(max(y)),
+    main = "Probability function for Poisson",
+    ylab = "Probability",
+    xlab = "y"
+  )
+
+  invisible(NULL)
+}
+
+

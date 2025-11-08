@@ -15,5 +15,5 @@ File to be printed must be in working directory}
 More Detailed Description
 }
 \examples{
-print_ascii("Lab4Package/inst/extdata/light_ascii.txt") (Provided)
+print_ascii("inst/extdata/light_ascii.txt") (Provided)
 }

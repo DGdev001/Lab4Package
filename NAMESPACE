@@ -2,6 +2,7 @@
 
 export(birthday)
 export(birthdayDGN)
+export(mycltp)
 export(myhyper)
 export(myncurve)
 export(print_ascii)
