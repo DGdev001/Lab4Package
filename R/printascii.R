@@ -203,5 +203,61 @@ mycltp <- function(n = 10, iter = 10000, lambda = 10, ...) {
 
   invisible(NULL)
 }
+#' Bootstrap estimator with histogram and confidence interval
+#'
+#' @param iter Number of bootstrap iterations.
+#' @param x Numeric vector of data.
+#' @param fun Function (or function name as a string) to compute the statistic.
+#' @param alpha Significance level for the confidence interval.
+#' @param cx Character expansion factor for printed text.
+#' @param ... Additional graphical arguments passed to hist().
+#'
+#' @details
+#' Used in Lab 9 for MATH-4753.
+#'
+#' @examples
+#' \dontrun{
+#'   myboot2(10000, x = rnorm(20), fun = "mean", alpha = 0.05, cx = 1.5)
+#' }
+#'
+#' @export
+myboot2 <- function(iter = 10000, x, fun = mean, alpha = 0.05, cx = 1.5, ...) {
+
+  # Allow fun to be character string
+  fun <- match.fun(fun)
+
+  n <- length(x)
+
+  # Bootstrap resampling
+  y <- sample(x, n * iter, replace = TRUE)
+  rs.mat <- matrix(y, nr = n, nc = iter, byrow = TRUE)
+
+  # Bootstrap statistics
+  xstat <- apply(rs.mat, 2, fun)
+
+  # Confidence interval
+  ci <- quantile(xstat, c(alpha/2, 1 - alpha/2))
+
+  # Histogram
+  para <- hist(xstat, freq = FALSE, las = 1,
+               main = paste("Histogram of Bootstrap Sample Statistics\n",
+                            "alpha = ", alpha, "  iter = ", iter, sep=""),
+               ...)
+
+  # Point estimate from original data
+  pte <- fun(x)
+
+  abline(v = pte, lwd = 3, col = "black")
+
+  # CI segment
+  segments(ci[1], 0, ci[2], 0, lwd = 4)
+  text(ci[1], 0, paste("(", round(ci[1], 2), sep=""), col="red", cex=cx)
+  text(ci[2], 0, paste(round(ci[2], 2), ")", sep=""), col="red", cex=cx)
+
+  # Annotate point estimate
+  text(pte, max(para$density)/2, round(pte, 2), cex = cx)
+
+  invisible(list(ci=ci, fun=fun, x=x, pte=pte))
+}
 
 
