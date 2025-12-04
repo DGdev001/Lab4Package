@@ -2,8 +2,7 @@
 title: "Lab 4 Package Examples"
 author: "David G Norvell"
 date: "`r Sys.Date()`"
-output:
-  rmarkdown::html_vignette
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Lab 4 Package Examples}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,7 +11,10 @@ vignette: >
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 library("Lab4Package")
 ```
 
