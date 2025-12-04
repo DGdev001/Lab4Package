@@ -1,0 +1,26 @@
+---
+title: "Demonstration of Lab4Package"
+author: "David G Norvell"
+date: "`r Sys.Date()`"
+output: rmarkdown:html_vignette
+vignette: >
+  %\VignetteIndexEntry{Lab 4 Package Examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("Lab4Package")
+knitr::opts_chunk$set(echo=TRUE)
+```
+
+```{r}
+print_ascii(system.file("extdata", "light_ascii.txt", package = "Lab4Package"))
+
+birthdayDGN(30)
+
+myhyper()
+
+myncurve(mu=10,sigma=2,a=20)
+```
