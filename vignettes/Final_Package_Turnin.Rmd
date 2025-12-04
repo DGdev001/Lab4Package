@@ -65,3 +65,12 @@ myncurve(mu=10,sigma=2,a=20)
 ```
 
 Output: The cumulative probability up to a, represented by the shaded area
+
+Dataset: FIRE
+
+Description: A Dataset from the the book https://www.crcpress.com/Statistics-for-Engineering-and-the-Sciences/Mendenhall-Sincich/p/book/9781498728850
+With 2 columns DISTANCE (cm) and DAMAGE (dollars)
+
+```{r}
+head(Lab4Package::fire)
+```
