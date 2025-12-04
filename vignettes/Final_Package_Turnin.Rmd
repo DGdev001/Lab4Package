@@ -1,26 +1,65 @@
 ---
-title: "Demonstration of Lab4Package"
+title: "Lab 4 Package Examples"
 author: "David G Norvell"
 date: "`r Sys.Date()`"
-output: rmarkdown:html_vignette
+output:
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Lab 4 Package Examples}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library("Lab4Package")
-knitr::opts_chunk$set(echo=TRUE)
 ```
+
+Function 1: Print ASCII
+
+Description: Reads a Text File and prints to Console, intended for ASCII art but can read any text.
+
+Usage: read a .txt file into an object (file <- system.file(...txt)) or place file directly in the working directory and pass in the filename
 
 ```{r}
 print_ascii(system.file("extdata", "light_ascii.txt", package = "Lab4Package"))
+```
 
+Output: Whatever file contents were present, printed to the terminal
+
+Function 2: Birthday Function!
+
+Description: Calculates the probability that at least two people in a group of n share the same birthday, assuming 365 days in a year. Returns a numeric vector of probabilities for each n.
+
+Usage: Input an integer to represent the number of people in the sample
+
+```{r}
 birthdayDGN(30)
+```
 
+Output: The probability of 2 people sharing the same birthday
+
+Function 3: Hypergeometric Simulation
+
+Description: Simulates the hypergeometric distribution by repeated sampling. N is the population size, r is the number of successes in the population, and n is the sample size. Returns a barplot of the proportion of successes and the frequency table.
+
+Usage: Run with Default Values for an Example, or pass in args (iter=??,N =?? ,r=??,n =??) all are integer type
+
+```{r}
 myhyper()
+```
 
+Output: Barplot showing the proportions of successes in the simulated trials
+
+Function 4: Normal Curve Shader
+
+Description: Plots a normal distribution curve with mean $\mu$ and standard deviation $\sigma$ Shades the area from $-\infty$ to a and calculates $P(X \leq a)$
+
+Usage: Set $\mu$ , $\sigma$ and a. All integer types.
+
+```{r}
 myncurve(mu=10,sigma=2,a=20)
 ```
+
+Output: The cumulative probability up to a, represented by the shaded area
