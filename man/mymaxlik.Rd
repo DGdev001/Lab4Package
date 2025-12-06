@@ -4,14 +4,15 @@
 \alias{mymaxlik}
 \title{Maximum Likelihood Plotter for Repeated Samples}
 \usage{
-mymaxlik(lfun, x, param, ...)
+mymaxlik(lfun, x = c(1, 2, 3), param = seq(0, 1, length.out = 100), ...)
 }
 \arguments{
-\item{lfun}{A log-likelihood function of the form \code{function(x, param)}.}
+\item{lfun}{A log-likelihood function of the form \code{function(x, param)}. (no default)}
 
-\item{x}{A vector of observed data values.}
+\item{x}{A numeric vector of observed data values. Default: \code{c(1,2,3)}.}
 
-\item{param}{A numeric sequence of parameter values to evaluate.}
+\item{param}{A numeric vector of parameter values to search over.
+Default: \code{seq(0, 1, length.out = 100)}.}
 
 \item{...}{Additional graphical parameters passed to \code{plot()}.}
 }
@@ -39,11 +40,15 @@ value using a vertical line and plotted point.
 \examples{
 # Example 1 — Binomial log likelihood
 logbin <- function(x, p) sum(dbinom(x, size = 1, prob = p, log = TRUE))
-mymaxlik(lfun = logbin, x = c(9,9,1,9,9,9), param = seq(0, 1, length = 100),
+mymaxlik(lfun = logbin,
+         x = c(9,9,1,9,9,9),
+         param = seq(0, 1, length.out = 100),
          xlab = expression(pi), main = "Binomial Example")
 
 # Example 2 — Poisson log likelihood
 logpoiss <- function(x, lambda) sum(dpois(x, lambda = lambda, log = TRUE))
-mymaxlik(lfun = logpoiss, x = c(3,4,3,5), param = seq(0, 20, length = 100),
+mymaxlik(lfun = logpoiss,
+         x = c(3,4,3,5),
+         param = seq(0, 20, length.out = 100),
          xlab = expression(lambda), main = "Poisson Example")
 }

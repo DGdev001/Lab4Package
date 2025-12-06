@@ -268,9 +268,10 @@ myboot2 <- function(iter = 10000, x, fun = mean, alpha = 0.05, cx = 1.5, ...) {
 #' the maximizing parameter value, marks it on the plot, and returns useful
 #' diagnostic information including slope changes around the maximum.
 #'
-#' @param lfun A log-likelihood function of the form \code{function(x, param)}.
-#' @param x A vector of observed data values.
-#' @param param A numeric sequence of parameter values to evaluate.
+#' @param lfun A log-likelihood function of the form \code{function(x, param)}. (no default)
+#' @param x A numeric vector of observed data values. Default: \code{c(1,2,3)}.
+#' @param param A numeric vector of parameter values to search over.
+#'   Default: \code{seq(0, 1, length.out = 100)}.
 #' @param ... Additional graphical parameters passed to \code{plot()}.
 #'
 #' @details
@@ -292,16 +293,22 @@ myboot2 <- function(iter = 10000, x, fun = mean, alpha = 0.05, cx = 1.5, ...) {
 #' @examples
 #' # Example 1 — Binomial log likelihood
 #' logbin <- function(x, p) sum(dbinom(x, size = 1, prob = p, log = TRUE))
-#' mymaxlik(lfun = logbin, x = c(9,9,1,9,9,9), param = seq(0, 1, length = 100),
+#' mymaxlik(lfun = logbin,
+#'          x = c(9,9,1,9,9,9),
+#'          param = seq(0, 1, length.out = 100),
 #'          xlab = expression(pi), main = "Binomial Example")
 #'
 #' # Example 2 — Poisson log likelihood
 #' logpoiss <- function(x, lambda) sum(dpois(x, lambda = lambda, log = TRUE))
-#' mymaxlik(lfun = logpoiss, x = c(3,4,3,5), param = seq(0, 20, length = 100),
+#' mymaxlik(lfun = logpoiss,
+#'          x = c(3,4,3,5),
+#'          param = seq(0, 20, length.out = 100),
 #'          xlab = expression(lambda), main = "Poisson Example")
-mymaxlik <- function(lfun, x, param, ...) {
+mymaxlik <- function(lfun,
+                     x = c(1, 2, 3),
+                     param = seq(0, 1, length.out = 100),
+                     ...) {
 
-  # Validate inputs
   if (!is.function(lfun)) stop("lfun must be a function.")
   if (!is.numeric(x)) stop("x must be numeric.")
   if (!is.numeric(param)) stop("param must be numeric.")
@@ -313,17 +320,21 @@ mymaxlik <- function(lfun, x, param, ...) {
   y <- apply(z, 2, sum)
 
   # Plot likelihood
-  plot(param, y, col = "blue", type = "l", lwd = 2, ...)
+  plot(param, y, col = "blue", type = "l", lwd = 2,
+       main = "Maximum Likelihood Plot",
+       xlab = "Parameter",
+       ylab = "Log-Likelihood",
+       ...)
 
-  # Find maximizing index
+  # Identify maximizing index
   i <- max(which(y == max(y)))
 
-  # Add markers and diagnostics
+  # Add graphical markers
   abline(v = param[i], lwd = 2, col = "red")
   points(param[i], y[i], pch = 19, cex = 1.5, col = "black")
   axis(3, param[i], round(param[i], 2))
 
-  # Check local slope changes
+  # Local slope diagnostic
   if (i - 3 >= 1 && i + 2 <= np) {
     slope <- (y[(i - 2):(i + 2)] - y[(i - 3):(i + 1)]) /
       (param[(i - 2):(i + 2)] - param[(i - 3):(i + 1)])
@@ -333,3 +344,4 @@ mymaxlik <- function(lfun, x, param, ...) {
 
   return(list(i = i, parami = param[i], yi = y[i], slope = slope))
 }
+
