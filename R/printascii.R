@@ -261,3 +261,75 @@ myboot2 <- function(iter = 10000, x, fun = mean, alpha = 0.05, cx = 1.5, ...) {
 }
 
 
+#' Maximum Likelihood Plotter for Repeated Samples
+#'
+#' Computes and plots the log-likelihood across a sequence of parameter values
+#' for repeated sampling from the same distribution. The function identifies
+#' the maximizing parameter value, marks it on the plot, and returns useful
+#' diagnostic information including slope changes around the maximum.
+#'
+#' @param lfun A log-likelihood function of the form \code{function(x, param)}.
+#' @param x A vector of observed data values.
+#' @param param A numeric sequence of parameter values to evaluate.
+#' @param ... Additional graphical parameters passed to \code{plot()}.
+#'
+#' @details
+#' The function evaluates the log-likelihood over all provided parameter values
+#' using \code{outer()} and sums likelihood contributions column-wise. It then
+#' produces a plot of the likelihood function and marks the estimated maximizing
+#' value using a vertical line and plotted point.
+#'
+#' @return A list containing:
+#' \itemize{
+#'   \item \code{i} – Index location of the maximum parameter value.
+#'   \item \code{parami} – Parameter value that maximizes the log-likelihood.
+#'   \item \code{yi} – Log-likelihood value at the maximum.
+#'   \item \code{slope} – Vector of slopes for local diagnostic checking.
+#' }
+#'
+#' @export
+#'
+#' @examples
+#' # Example 1 — Binomial log likelihood
+#' logbin <- function(x, p) sum(dbinom(x, size = 1, prob = p, log = TRUE))
+#' mymaxlik(lfun = logbin, x = c(9,9,1,9,9,9), param = seq(0, 1, length = 100),
+#'          xlab = expression(pi), main = "Binomial Example")
+#'
+#' # Example 2 — Poisson log likelihood
+#' logpoiss <- function(x, lambda) sum(dpois(x, lambda = lambda, log = TRUE))
+#' mymaxlik(lfun = logpoiss, x = c(3,4,3,5), param = seq(0, 20, length = 100),
+#'          xlab = expression(lambda), main = "Poisson Example")
+mymaxlik <- function(lfun, x, param, ...) {
+
+  # Validate inputs
+  if (!is.function(lfun)) stop("lfun must be a function.")
+  if (!is.numeric(x)) stop("x must be numeric.")
+  if (!is.numeric(param)) stop("param must be numeric.")
+
+  np <- length(param)
+
+  # Evaluate likelihood matrix
+  z <- outer(x, param, lfun)
+  y <- apply(z, 2, sum)
+
+  # Plot likelihood
+  plot(param, y, col = "blue", type = "l", lwd = 2, ...)
+
+  # Find maximizing index
+  i <- max(which(y == max(y)))
+
+  # Add markers and diagnostics
+  abline(v = param[i], lwd = 2, col = "red")
+  points(param[i], y[i], pch = 19, cex = 1.5, col = "black")
+  axis(3, param[i], round(param[i], 2))
+
+  # Check local slope changes
+  if (i - 3 >= 1 && i + 2 <= np) {
+    slope <- (y[(i - 2):(i + 2)] - y[(i - 3):(i + 1)]) /
+      (param[(i - 2):(i + 2)] - param[(i - 3):(i + 1)])
+  } else {
+    slope <- NA
+  }
+
+  return(list(i = i, parami = param[i], yi = y[i], slope = slope))
+}
