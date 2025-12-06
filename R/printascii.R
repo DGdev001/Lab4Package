@@ -315,9 +315,13 @@ mymaxlik <- function(lfun,
 
   np <- length(param)
 
-  # Evaluate likelihood matrix
-  z <- outer(x, param, lfun)
-  y <- apply(z, 2, sum)
+  # Create a vectorized version of the likelihood function
+  vectorized_lfun <- function(param_value) {
+    sum(sapply(x, function(xi) lfun(xi, param_value)))
+  }
+
+  # Calculate likelihood for each parameter value
+  y <- sapply(param, vectorized_lfun)
 
   # Plot likelihood
   plot(param, y, col = "blue", type = "l", lwd = 2,
@@ -327,7 +331,7 @@ mymaxlik <- function(lfun,
        ...)
 
   # Identify maximizing index
-  i <- max(which(y == max(y)))
+  i <- which.max(y)
 
   # Add graphical markers
   abline(v = param[i], lwd = 2, col = "red")
